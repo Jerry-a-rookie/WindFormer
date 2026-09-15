@@ -1,0 +1,19 @@
+# Python cache and local environments
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.pytest_tmp/
+
+# Generated data and experiment outputs
+data/processed/*
+!data/processed/.gitkeep
+experiments/*
+!experiments/.gitkeep
+
+# Never publish training artifacts by accident
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.log

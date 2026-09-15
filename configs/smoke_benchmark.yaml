@@ -1,0 +1,83 @@
+project:
+  name: smoke-window-fft-benchmark
+  seed: 7
+
+data:
+  dataset_name: synthetic
+  input_path: data/raw/synthetic.csv
+  prepared_path: data/processed/synthetic_h6.npz
+  timestamp_column: timestamp
+  turbine_column: turbine_id
+  speed_column: wind_speed
+  direction_column: wind_direction
+  x_column: x
+  y_column: y
+  interval_minutes: 10
+  lookback: 24
+  horizon: 6
+  split: [0.7, 0.1, 0.2]
+  max_speed: 40.0
+  max_gap_steps: 3
+  fft_denoise:
+    enabled: true
+    scope: window
+    apply_to: [input]
+    amplitude_quantile: 0.1
+
+model:
+  name: dlinear
+
+training:
+  device: auto
+  amp: true
+  batch_size: 32
+  learning_rate: 0.001
+  weight_decay: 0.0
+  epochs: 1
+  patience: 1
+  num_workers: 0
+  speed_loss_weight: 1.0
+  direction_loss_weight: 0.5
+
+evaluation:
+  paper_results_path: reports/paper_results.yaml
+  prediction_plot_samples: 24
+
+benchmark:
+  run_prefix: smoke-window-fft-benchmark
+  models:
+    dlinear:
+      model:
+        moving_average: 7
+        individual: true
+    tcn:
+      model:
+        channels: 8
+        kernel_size: 3
+        levels: 2
+        dropout: 0.0
+    transformer:
+      model:
+        d_model: 16
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 32
+        dropout: 0.0
+    patchtst:
+      model:
+        patch_length: 8
+        stride: 4
+        d_model: 16
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 32
+        dropout: 0.0
+        revin: true
+    itransformer:
+      model:
+        d_model: 16
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 32
+        dropout: 0.0
+        use_norm: true

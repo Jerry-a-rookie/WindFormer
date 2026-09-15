@@ -1,0 +1,22 @@
+datasets:
+  shanxi:
+    name: Shanxi Wind Turbines Dataset
+    source_type: git
+    url: https://github.com/lou-yimin/Shanxi-Wind-Turbines-Dataset
+    target_dir: data/raw/Shanxi
+    license: 请核对原始仓库的许可与再分发要求。
+    expected_period: 2023-11-01 to 2024-05-31
+    interval_minutes: 10
+    turbines: 24
+    sha256: null
+  penmanshiel:
+    name: Penmanshiel Wind Farm Dataset
+    source_type: zenodo
+    record_id: 5946808
+    url: https://doi.org/10.5281/zenodo.5946808
+    target_dir: data/raw/penmanshiel
+    license: Open dataset; verify the Zenodo record for exact terms.
+    expected_period: 2016-07-27 to 2021-06-30
+    interval_minutes: 10
+    turbines: 14
+    sha256: null

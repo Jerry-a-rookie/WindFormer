@@ -1,0 +1,62 @@
+project:
+  name: local-phaseformer-common-residual-mlp-h6
+  seed: 2026
+
+data:
+  dataset_name: penmanshiel_2016_2022_extended_circular
+  format: penmanshiel_zip
+  input_path: data/raw/penmanshiel
+  static_metadata_path: data/raw/penmanshiel/Penmanshiel_WT_static.csv
+  prepared_path: data/processed/penmanshiel_2016_2022_h6_full_interp_speed_fft_circular.npz
+  years: [2016, 2017, 2018, 2019, 2020, 2021, 2022]
+  direction_representation: circular
+  interval_minutes: 10
+  lookback: 288
+  horizon: 6
+  split: [0.7, 0.1, 0.2]
+  fft_denoise:
+    enabled: true
+    scope: full_sequence
+    apply_to: [input, target]
+    apply_features: [speed]
+    amplitude_quantile: 0.1
+
+model:
+  name: phaseformer_common_residual_mlp
+  screened_periods: [6, 12]
+  common_speed_encoder: phase_attention
+  common_direction_encoder: screened
+  common_hidden_size: 32
+  common_phase_d_model: 16
+  common_phase_nhead: 2
+  common_phase_routers: 4
+  residual_encoder: mlp
+  residual_hidden_size: 32
+  dropout: 0.1
+  graph_k: 4
+  graph_kernel_scale: null
+  graph_strength: 0.5
+  direction_convention: from
+  graph_temperature: 0.35
+  use_graph: true
+
+training:
+  device: auto
+  amp: true
+  deterministic: false
+  batch_size: 128
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  epochs: 10
+  patience: 3
+  num_workers: 0
+  speed_loss_weight: 1.0
+  direction_loss_weight: 1.0
+  vector_loss_weight: 0.1
+  circular_direction_loss: true
+  low_wind_direction_threshold: 1.0
+
+evaluation:
+  direction_metric: circular
+  report_horizons: [6]
+  prediction_plot_samples: 144

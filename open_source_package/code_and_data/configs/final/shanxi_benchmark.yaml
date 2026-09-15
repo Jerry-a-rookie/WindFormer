@@ -1,0 +1,86 @@
+project:
+  name: cscd-net-shanxi-2023-11-2024-05
+  seed: 2026
+
+data:
+  dataset_name: shanxi_2023_11_2024_05
+  format: csv
+  input_path: data/raw/Shanxi
+  prepared_path: data/processed/shanxi_h18_interp_circular.npz
+  timestamp_column: ts
+  turbine_column: null
+  speed_column: null
+  direction_column: null
+  x_column: null
+  y_column: null
+  direction_representation: circular
+  interval_minutes: 10
+  lookback: 288
+  horizon: 18
+  split: [0.7, 0.1, 0.2]
+  max_speed: 25.0
+  fft_denoise:
+    enabled: false
+
+model:
+  name: cscd_net
+  screened_periods: [6, 12]
+  common_speed_encoder: phase_attention
+  common_direction_encoder: screened
+  common_hidden_size: 32
+  common_phase_d_model: 16
+  common_phase_nhead: 2
+  common_phase_routers: 4
+  residual_encoder: mlp
+  residual_hidden_size: 32
+  residual_persistence: true
+  dropout: 0.1
+  use_graph: false
+
+training:
+  device: auto
+  amp: true
+  deterministic: false
+  batch_size: 128
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  epochs: 30
+  patience: 5
+  num_workers: 0
+  speed_loss_weight: 1.0
+  direction_loss_weight: 1.0
+  vector_loss_weight: 0.1
+  circular_direction_loss: true
+  low_wind_direction_threshold: 1.0
+
+evaluation:
+  direction_metric: circular
+  report_horizons: [6, 12, 18]
+  prediction_plot_samples: 144
+
+benchmark:
+  run_prefix: cscd-net-shanxi-2023-11-2024-05
+  horizons: [6, 12, 18]
+  models:
+    cscd_net:
+      model:
+        screened_periods: [6, 12]
+        common_speed_encoder: phase_attention
+        common_direction_encoder: screened
+        common_hidden_size: 32
+        common_phase_d_model: 16
+        common_phase_nhead: 2
+        common_phase_routers: 4
+        residual_encoder: mlp
+        residual_hidden_size: 32
+        residual_persistence: true
+        dropout: 0.1
+        use_graph: false
+    itransformer:
+      model:
+        d_model: 64
+        nhead: 4
+        num_layers: 3
+        dim_feedforward: 128
+        dropout: 0.1
+        use_norm: true

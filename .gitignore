@@ -1,0 +1,52 @@
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.pytest_tmp/
+.pytest_tmp_*/
+_tmp_pdf_pages/
+*.DS_Store
+._*
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.synctex.gz
+*.log
+
+# Local datasets and derived arrays are never part of the code release.
+data/raw/*
+data/processed/*
+archive/datasets/*
+server_package_final_20260730/data/raw/*
+server_package_final_20260730/data/processed/*
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!archive/datasets/.gitkeep
+!server_package_final_20260730/data/raw/.gitkeep
+!server_package_final_20260730/data/processed/.gitkeep
+
+# Large local/export archives are kept outside GitHub.
+*.zip
+
+# Generated experiment outputs are reproducible and kept locally.
+experiments/*
+!experiments/.gitkeep
+
+# Legacy working copies and conversion artefacts are kept locally, not in the
+# public release.  The current manuscript and release code live in the two
+# dedicated packages below.
+archive/
+server_package_final_20260730/
+paper/
+reports/
+MST-Net.*
+ccfa4.pptx
+data.png
+架构.png
+strong_periodic_*.png
+
+# Figure-generation workspace can be regenerated from the public scripts. The
+# release keeps only the curated preview images under assets/ and the formal
+# figures inside submission_package/.
+figures/

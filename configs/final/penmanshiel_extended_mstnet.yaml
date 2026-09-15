@@ -1,0 +1,54 @@
+project:
+  name: penmanshiel-extended-2016-2022-h24-full-interp-fft-mstnet
+  seed: 2026
+
+data:
+  dataset_name: penmanshiel_2016_2022_extended
+  format: penmanshiel_zip
+  input_path: data/raw/penmanshiel
+  static_metadata_path: data/raw/penmanshiel/Penmanshiel_WT_static.csv
+  prepared_path: data/processed/penmanshiel_2016_2022_h24_full_interp_fft.npz
+  years: [2016, 2017, 2018, 2019, 2020, 2021, 2022]
+  timestamp_column: null
+  speed_column: null
+  direction_column: null
+  direction_representation: scalar
+  interval_minutes: 10
+  lookback: 288
+  horizon: 24
+  split: [0.7, 0.1, 0.2]
+  max_speed: 25.0
+  max_gap_steps: null
+  fft_denoise:
+    enabled: true
+    scope: full_sequence
+    apply_to: [input, target]
+    amplitude_quantile: 0.1
+
+model:
+  name: mstnet
+  num_scales: 3
+  top_components: 3
+  hidden_size: 32
+  upstream_turbines: 5
+  leading_segments: 3
+  dropout: 0.1
+
+training:
+  device: auto
+  amp: true
+  deterministic: false
+  batch_size: 128
+  learning_rate: 0.0001
+  weight_decay: 0.0
+  epochs: 10
+  patience: 3
+  num_workers: 0
+  speed_loss_weight: 1.0
+  direction_loss_weight: 1.0
+
+evaluation:
+  direction_metric: scalar
+  report_horizons: [24]
+  paper_results_path: reports/paper_results.yaml
+  prediction_plot_samples: 144

@@ -1,0 +1,180 @@
+project:
+  name: penmanshiel-patch-attention-2016-2022
+  seed: 2026
+
+data:
+  dataset_name: penmanshiel_2016_2022_extended
+  format: penmanshiel_zip
+  input_path: data/raw/penmanshiel
+  static_metadata_path: data/raw/penmanshiel/Penmanshiel_WT_static.csv
+  prepared_path: data/processed/penmanshiel_2016_2022_h24_full_interp_fft.npz
+  years: [2016, 2017, 2018, 2019, 2020, 2021, 2022]
+  timestamp_column: null
+  speed_column: null
+  direction_column: null
+  direction_representation: scalar
+  interval_minutes: 10
+  lookback: 288
+  horizon: 24
+  split: [0.7, 0.1, 0.2]
+  max_speed: 25.0
+  max_gap_steps: null
+  fft_denoise:
+    enabled: true
+    scope: full_sequence
+    apply_to: [input, target]
+    apply_features: [speed]
+    amplitude_quantile: 0.1
+
+model:
+  name: patch_linear_gated
+  patch_length: 12
+  stride: 6
+  d_model: 12
+  nhead: 4
+  num_layers: 1
+  dim_feedforward: 128
+  dropout: 0.1
+  attention_type: linear
+  use_gate: true
+  use_graph: true
+
+training:
+  device: auto
+  amp: true
+  deterministic: false
+  batch_size: 128
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  epochs: 10
+  patience: 3
+  num_workers: 0
+  speed_loss_weight: 1.0
+  direction_loss_weight: 1.0
+  vector_loss_weight: 0.1
+  circular_direction_loss: true
+  low_wind_direction_threshold: 1.0
+
+evaluation:
+  direction_metric: circular
+  report_horizons: [6, 12, 18, 24]
+  paper_results_path: reports/paper_results.yaml
+  prediction_plot_samples: 144
+
+benchmark:
+  run_prefix: penmanshiel-patch-attention-2016-2022
+  horizons: [6, 12, 18, 24]
+  models:
+    dlinear:
+      model:
+        moving_average: 25
+        individual: true
+    tcn:
+      model:
+        channels: 16
+        kernel_size: 3
+        levels: 7
+        dropout: 0.1
+      training:
+        weight_decay: 0.0001
+    transformer:
+      model:
+        d_model: 64
+        nhead: 4
+        num_layers: 2
+        dim_feedforward: 128
+        dropout: 0.1
+      training:
+        weight_decay: 0.0001
+    itransformer:
+      model:
+        d_model: 64
+        nhead: 4
+        num_layers: 2
+        dim_feedforward: 128
+        dropout: 0.1
+        use_norm: true
+      training:
+        weight_decay: 0.0001
+    patchtst:
+      model:
+        patch_length: 12
+        stride: 6
+        d_model: 64
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 128
+        dropout: 0.1
+        revin: true
+    patch_linear:
+      model:
+        patch_length: 12
+        stride: 6
+        d_model: 64
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 128
+        dropout: 0.1
+        attention_type: linear
+        use_gate: false
+        use_graph: false
+    patch_linear_gated:
+      model:
+        patch_length: 12
+        stride: 6
+        d_model: 12
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 128
+        dropout: 0.1
+        attention_type: linear
+        use_gate: true
+        use_graph: true
+    patch_gated:
+      model:
+        patch_length: 12
+        stride: 6
+        d_model: 64
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 128
+        dropout: 0.1
+        attention_type: standard
+        use_gate: true
+        use_graph: true
+    patch_standard:
+      model:
+        patch_length: 12
+        stride: 6
+        d_model: 64
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 128
+        dropout: 0.1
+        attention_type: standard
+        use_gate: false
+        use_graph: true
+    patch_talking_head:
+      model:
+        patch_length: 12
+        stride: 6
+        d_model: 64
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 128
+        dropout: 0.1
+        attention_type: talking_head
+        use_gate: false
+        use_graph: true
+    patch_ssm:
+      model:
+        patch_length: 12
+        stride: 6
+        d_model: 64
+        nhead: 4
+        num_layers: 1
+        dim_feedforward: 128
+        dropout: 0.1
+        attention_type: ssm
+        use_gate: false
+        use_graph: true
