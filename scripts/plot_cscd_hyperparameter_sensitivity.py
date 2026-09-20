@@ -1,4 +1,4 @@
-"""Plot a six-panel 3D hyperparameter sensitivity figure for CSCD-Net.
+"""Plot a six-panel 3D hyperparameter sensitivity figure for WindFormer.
 
 The production workflow is CSV-driven:
 
@@ -381,7 +381,7 @@ def plot(data: pd.DataFrame, output_prefix: Path, demo: bool) -> None:
     )
     if demo:
         fig.suptitle(
-            "CSCD-Net hyperparameter sensitivity: layout preview only",
+            "WindFormer hyperparameter sensitivity: layout preview only",
             x=0.5,
             y=0.965,
             fontsize=11,
@@ -398,7 +398,7 @@ def plot(data: pd.DataFrame, output_prefix: Path, demo: bool) -> None:
         )
     else:
         fig.suptitle(
-            "CSCD-Net hyperparameter sensitivity",
+            "WindFormer hyperparameter sensitivity",
             x=0.5,
             y=0.972,
             fontsize=11,

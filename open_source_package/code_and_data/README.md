@@ -1,4 +1,4 @@
-# WindFormer / CSCD-Net 风电预测开源代码
+# WindFormer 风电预测开源代码
 
 <p align="center">
   <img src="assets/architecture.png" width="820" alt="WindFormer architecture">
@@ -9,7 +9,7 @@
 > 论文配套的精简可复现代码包：代码、配置和实验流程随包提供，原始数据
 > 通过公开来源获取。
 
-本目录保留山西标准实验、`itransformer` 基线和 `cscd_net` / WindFormer
+本目录保留山西标准实验、`itransformer` 基线和 WindFormer
 代码。数据文件已从项目中移除；运行实验前请从原始公开来源下载数据，
 并按配置文件放置到对应目录。
 
@@ -25,7 +25,7 @@
   <img src="assets/phase_representation.png" width="820" alt="Patch and phase representations">
 </p>
 
-<p align="center"><em>Phase 表示组织周期位置，Patch 表示保留局部时间片段。</em></p>
+<p align="center"><em>Phase 表示按候选时间尺度组织局部阶段，Patch 表示保留局部时间片段。</em></p>
 
 <p align="center">
   <img src="assets/frequency_wavelet_evidence.png" width="820" alt="Wind-speed frequency and wavelet evidence">
@@ -77,7 +77,7 @@ code_and_data/
 
 ```powershell
 python scripts/prepare_data.py --config configs/final/shanxi_benchmark.yaml
-python scripts/benchmark.py --config configs/final/shanxi_benchmark.yaml --models cscd_net itransformer --horizons 6 12 18 --skip-existing
+python scripts/benchmark.py --config configs/final/shanxi_benchmark.yaml --models windformer itransformer --horizons 6 12 18 --skip-existing
 ```
 
 或直接运行：

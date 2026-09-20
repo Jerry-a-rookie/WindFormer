@@ -62,21 +62,21 @@ The model predicts the two direction components, applies L2 normalization, and r
 This representation keeps boundary-adjacent directions close in the model space and supports vector-based error calculation.
 
 \section{PROPOSED METHODOLOGY}
-\label{sec:cscd_net}
+\label{sec:windformer_method}
 
 
-\begin{figure}[!t]
+\begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.5\textwidth]{figures/cscd_architecture.png}
+	\includegraphics[width=0.9\textwidth]{figures/WindFormer_architecture.png}
 \caption{Overall architecture of WindFormer. The wind speed branch extracts and forecasts common wind speed dynamics with Phase-Attention and restores turbine-level residuals, while the wind direction branch preserves turbine-wise two-dimensional direction sequences through shared Patch-Attention encoding.}
-	\label{fig:cscd_architecture}
+\label{fig:WindFormer_architecture}
 \end{figure}
 
-\subsection{Overall Model Structure}
+\subsection{Overall WindFormer Structure}
 
-The proposed WindFormer is designed around two physical properties of wind farms: wind speeds tend to share common meteorological evolution across turbines, whereas wind directions are recorded as one-dimensional angles and exhibit stronger turbine-specific patterns. As shown in Fig.~\ref{fig:cscd_architecture}, WindFormer contains a wind-speed branch and a wind-direction branch, and the two branches are trained jointly.
+WindFormer is designed around two physical properties of wind farms: wind speeds tend to share common meteorological evolution across turbines, whereas wind directions are recorded as one-dimensional angles and exhibit stronger turbine-specific patterns. As shown in Fig.~\ref{fig:WindFormer_architecture}, WindFormer contains a wind-speed branch and a wind-direction branch. The branches are representation-decoupled so that each variable is modeled in its appropriate space, but they are jointly optimized through a physical wind-vector consistency objective.
 
-Given an input window, the wind-speed branch decomposes the multi-turbine speed field into a common speed component and turbine-level residual components. The common component is encoded by Phase-Attention to capture phase-aligned cross-period evolution, while the residual components are predicted by a shared residual MLP to recover local deviations. The predicted common speed and turbine residuals are then reconstructed into future turbine-wise wind speeds.
+Given an input window, the wind-speed branch decomposes the multi-turbine speed field into a common speed component and turbine-level residual components. The common component is encoded by Phase-Attention to capture phase-aligned evolution across temporal blocks, while the residual components are predicted by a shared residual MLP to recover local deviations. The predicted common speed and turbine residuals are then reconstructed into future turbine-wise wind speeds.
 
 The wind-direction branch maps one-dimensional direction angles into two-dimensional sine-cosine unit vectors. For each turbine, the historical two-dimensional direction sequence is partitioned into temporal patches, embedded as patch tokens, and processed by a shared Patch-Attention encoder. A direction prediction head outputs future direction components, which are normalized to unit length before being converted back to angles. This branch preserves turbine-wise directional evolution while sharing temporal parameters across turbines.
 
@@ -112,9 +112,9 @@ r_{t,i} = \tilde{v}_{t,i}-c_t.
 
 This operation compresses shared wind-farm variations into a common sequence, while turbine-specific deviations are handled by the residual branch.
 
-\subsection{Common Wind Speed Phase-Attention}
+\subsection{Common Wind Speed Phase-Attention over Candidate Temporal Scales}
 
-\textbf{Candidate period folding.}
+\textbf{Candidate temporal-scale folding.}
 
 Let the common wind speed input sequence be:
 
@@ -122,7 +122,7 @@ Let the common wind speed input sequence be:
 \mathbf{c}_{1:L} = [c_1, c_2, \ldots, c_L].
 \end{equation}
 
-For a candidate period $p$, the model organizes the sequence into multiple local period blocks according to the period position. Let:
+For a screened candidate temporal scale $p$, the model organizes the sequence into multiple local temporal blocks according to relative phase position. The scale is a modeling choice for organizing recurring local dynamics, rather than a claim that the wind farm follows one strict physical period. Let:
 
 \begin{equation}
 K_p = \left\lceil\frac{L}{p}\right\rceil,
@@ -134,13 +134,13 @@ then after necessary boundary padding, the sequence can be represented as:
 \mathbf{C}^{(p)} \in \mathbb{R}^{K_p\times p\times 1}.
 \end{equation}
 
-Here, $K_p$ represents the number of period blocks contained in the historical window, and $p$ represents the phase position within each period block. Each period block is flattened into a token:
+Here, $K_p$ represents the number of temporal blocks contained in the historical window, and $p$ represents the number of phase positions within each block. Each block is flattened into a token:
 
 \begin{equation}
 \mathbf{q}^{(p)}_k = \operatorname{Flatten} \left( \mathbf{C}^{(p)}_{k,:,:} \right) \in \mathbb{R}^{p}.
 \end{equation}
 
-For multiple candidate periods collected in $\mathcal{P}$, the model organizes short-term temporal patterns at different phase scales.
+For multiple screened candidate scales collected in $\mathcal{P}$, the model organizes short-term temporal patterns at different local phase resolutions.
 
 \textbf{Router-based Phase Attention.}
 
@@ -150,47 +150,47 @@ Each phase token first undergoes linear projection to obtain a $d_m$-dimensional
 \mathbf{e}^{(p)}_k = \operatorname{LN} \left( \mathbf{W}_{\mathrm{in}}^{(p)} \mathbf{q}^{(p)}_k \right) + \mathbf{p}^{(p)}_k.
 \end{equation}
 
-To aggregate context across different period blocks, the model introduces $R$ learnable router tokens. Let:
+To aggregate context across different temporal blocks, the model introduces $R$ learnable router tokens. Let:
 
 \begin{equation}
 \mathbf{R}^{(p)} \in \mathbb{R}^{R\times d_m},
 \end{equation}
 
-then the routers first extract global information from the period tokens:
+then the routers first extract global information from the temporal-scale tokens:
 
 \begin{equation}
 \mathbf{C}^{(p)} = \operatorname{Attn} \left( \mathbf{R}^{(p)}, \mathbf{E}^{(p)}, \mathbf{E}^{(p)} \right),
 \end{equation}
 
-Subsequently, the period tokens read the cross-period context from the router representations:
+Subsequently, the temporal-scale tokens read cross-block context from the router representations:
 
 \begin{equation}
 \widetilde{\mathbf{E}}^{(p)} = \operatorname{Attn} \left( \mathbf{E}^{(p)}, \mathbf{C}^{(p)}, \mathbf{C}^{(p)} \right).
 \end{equation}
 
-With residual connections, layer normalization, and feed-forward networks, router tokens summarize cross-period context without full pairwise interaction among all period tokens.
+With residual connections, layer normalization, and feed-forward networks, router tokens summarize cross-block context without full pairwise interaction among all temporal-scale tokens.
 
 \textbf{Multi-scale common wind speed prediction.}
 
-For each candidate period, the model concatenates the last period token with the average representation of all period tokens:
+For each candidate temporal scale, the model concatenates the last block token with the average representation of all block tokens:
 
 \begin{equation}
 \mathbf{s}^{(p)} = \left[ \widetilde{\mathbf{e}}^{(p)}_{K_p}; \frac{1}{K_p} \sum_{k=1}^{K_p} \widetilde{\mathbf{e}}^{(p)}_k \right].
 \end{equation}
 
-Subsequently, the future common wind speed is obtained through the period branch prediction head:
+Subsequently, the future common wind speed is obtained through the temporal-scale branch prediction head:
 
 \begin{equation}
 \hat{\mathbf{c}}^{(p)} = f_{\mathrm{head}}^{(p)} \left( \mathbf{s}^{(p)} \right) \in \mathbb{R}^{H}.
 \end{equation}
 
-The prediction results of different candidate periods are combined by learnable period fusion weights:
+The prediction results of different candidate temporal scales are combined by learnable fusion weights:
 
 \begin{equation}
 \hat{\mathbf{c}} = \sum_{p\in\mathcal{P}} \beta_p\hat{\mathbf{c}}^{(p)}, \qquad \beta_p = \frac{\exp(\gamma_p)}{\sum_{q\in\mathcal{P}}\exp(\gamma_q)}.
 \end{equation}
 
-Thus, Phase-Attention learns a fusion of multiple short-term candidate scales rather than relying on a single fixed period.
+Thus, Phase-Attention learns a fusion of multiple short-term candidate scales rather than relying on a single fixed temporal organization.
 
 \subsection{Shared Wind Speed Residual Prediction and Reconstruction}
 

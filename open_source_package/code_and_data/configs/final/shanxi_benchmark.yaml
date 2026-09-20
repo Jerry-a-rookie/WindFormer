@@ -1,5 +1,5 @@
 project:
-  name: cscd-net-shanxi-2023-11-2024-05
+  name: windformer-shanxi-2023-11-2024-05
   seed: 2026
 
 data:
@@ -23,7 +23,7 @@ data:
     enabled: false
 
 model:
-  name: cscd_net
+  name: windformer
   screened_periods: [6, 12]
   common_speed_encoder: phase_attention
   common_direction_encoder: screened
@@ -59,10 +59,10 @@ evaluation:
   prediction_plot_samples: 144
 
 benchmark:
-  run_prefix: cscd-net-shanxi-2023-11-2024-05
+  run_prefix: windformer-shanxi-2023-11-2024-05
   horizons: [6, 12, 18]
   models:
-    cscd_net:
+    windformer:
       model:
         screened_periods: [6, 12]
         common_speed_encoder: phase_attention

@@ -13,7 +13,7 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPERIMENTS_DIR = ROOT / "open_source" / "experiments"
+EXPERIMENTS_DIR = ROOT / "experiments"
 SUMMARY_PATH = EXPERIMENTS_DIR / "model_comparison_summary.md"
 EXTREME_PATH = EXPERIMENTS_DIR / "极端场景.md"
 OUTPUT_DIRS = [ROOT / "figures", ROOT / "正式文件"]
@@ -33,6 +33,11 @@ HORIZONS = [6, 12, 18]
 NOISE_CONDITIONS = ["noise_0.1", "noise_0.2", "noise_0.3"]
 FOCUS_DATASET = "Penmanshiel"
 FOCUS_MODELS = ["CSCD-Net", "MST-Net", "DLinear", "TimesNet", "iTransformer"]
+
+
+def display_model_name(model: str) -> str:
+    """Return the public model name used in generated figures and tables."""
+    return "WindFormer" if model == "CSCD-Net" else model
 
 MODEL_COLORS = {
     "CSCD-Net": "#C76E5E",
@@ -296,7 +301,7 @@ def save_sparse_error_table(
                                 "metric": metric,
                                 "condition": condition_label,
                                 "horizon": horizon,
-                                "model": model,
+                                "model": display_model_name(model),
                                 "mae": metric_values[horizon][condition_key][model],
                             }
                         )
@@ -338,7 +343,7 @@ def plot_noise_robustness(
                     edgecolor="#FFFFFF",
                     linewidth=1.0,
                     alpha=0.98,
-                    label=model,
+                    label=display_model_name(model),
                 )
             axis.set_xticks(x)
             axis.set_xticklabels(noise_labels)
@@ -396,7 +401,7 @@ def plot_extreme_volatility(
                     markerfacecolor=MODEL_COLORS[model],
                     markeredgecolor="white",
                     markeredgewidth=0.85,
-                    label=model,
+                    label=display_model_name(model),
                 )
             axis.set_xticks(x)
             axis.set_xticklabels(labels)
@@ -458,7 +463,7 @@ def plot_sparse_deployment(
                     markerfacecolor=MODEL_COLORS[model],
                     markeredgecolor="white",
                     markeredgewidth=0.85,
-                    label=model,
+                    label=display_model_name(model),
                 )
             axis.set_xticks(x)
             axis.set_xticklabels(x_labels)

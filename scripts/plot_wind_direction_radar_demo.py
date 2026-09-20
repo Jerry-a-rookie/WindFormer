@@ -17,7 +17,7 @@ PNG_DIR = OUTPUT_ROOT / "png"
 def build_demo_data() -> list[dict[str, object]]:
     # Simulated circular MAE values in degrees. Lower values are better.
     values = {
-        "Phase-Net": [4.2, 5.0, 5.9, 7.1],
+        "WindFormer": [4.2, 5.0, 5.9, 7.1],
         "Transformer": [4.8, 5.7, 6.8, 8.2],
         "PatchTST": [5.1, 6.2, 7.2, 8.8],
         "iTransformer": [4.5, 5.5, 6.5, 7.9],

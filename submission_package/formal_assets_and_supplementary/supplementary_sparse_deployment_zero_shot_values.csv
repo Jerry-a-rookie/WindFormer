@@ -1,90 +1,90 @@
 ﻿dataset,metric,condition,horizon,model,mae
-Penmanshiel,speed,Full-sample,6,CSCD-Net,0.7142
+Penmanshiel,speed,Full-sample,6,WindFormer,0.7142
 Penmanshiel,speed,Full-sample,6,MST-Net,0.7978
 Penmanshiel,speed,Full-sample,6,DLinear,0.9263
 Penmanshiel,speed,Full-sample,6,TimesNet,0.921
 Penmanshiel,speed,Full-sample,6,iTransformer,0.9272
-Penmanshiel,speed,Full-sample,12,CSCD-Net,0.8812
+Penmanshiel,speed,Full-sample,12,WindFormer,0.8812
 Penmanshiel,speed,Full-sample,12,MST-Net,0.9879
 Penmanshiel,speed,Full-sample,12,DLinear,1.1473
 Penmanshiel,speed,Full-sample,12,TimesNet,1.1406
 Penmanshiel,speed,Full-sample,12,iTransformer,1.1491
-Penmanshiel,speed,Full-sample,18,CSCD-Net,1.0103
+Penmanshiel,speed,Full-sample,18,WindFormer,1.0103
 Penmanshiel,speed,Full-sample,18,MST-Net,1.1249
 Penmanshiel,speed,Full-sample,18,DLinear,1.3061
 Penmanshiel,speed,Full-sample,18,TimesNet,1.2976
 Penmanshiel,speed,Full-sample,18,iTransformer,1.3081
-Penmanshiel,speed,Zero-shot,6,CSCD-Net,0.7241
+Penmanshiel,speed,Zero-shot,6,WindFormer,0.7241
 Penmanshiel,speed,Zero-shot,6,MST-Net,0.8138
 Penmanshiel,speed,Zero-shot,6,DLinear,0.9665
 Penmanshiel,speed,Zero-shot,6,TimesNet,0.9522
 Penmanshiel,speed,Zero-shot,6,iTransformer,0.9648
-Penmanshiel,speed,Zero-shot,12,CSCD-Net,0.8937
+Penmanshiel,speed,Zero-shot,12,WindFormer,0.8937
 Penmanshiel,speed,Zero-shot,12,MST-Net,1.0096
 Penmanshiel,speed,Zero-shot,12,DLinear,1.19
 Penmanshiel,speed,Zero-shot,12,TimesNet,1.1735
 Penmanshiel,speed,Zero-shot,12,iTransformer,1.1837
-Penmanshiel,speed,Zero-shot,18,CSCD-Net,1.0247
+Penmanshiel,speed,Zero-shot,18,WindFormer,1.0247
 Penmanshiel,speed,Zero-shot,18,MST-Net,1.1523
 Penmanshiel,speed,Zero-shot,18,DLinear,1.3529
 Penmanshiel,speed,Zero-shot,18,TimesNet,1.3341
 Penmanshiel,speed,Zero-shot,18,iTransformer,1.3445
-Penmanshiel,speed,Zero-shot + sigma=0.3,6,CSCD-Net,0.7306
+Penmanshiel,speed,Zero-shot + sigma=0.3,6,WindFormer,0.7306
 Penmanshiel,speed,Zero-shot + sigma=0.3,6,MST-Net,0.825
 Penmanshiel,speed,Zero-shot + sigma=0.3,6,DLinear,0.9875
 Penmanshiel,speed,Zero-shot + sigma=0.3,6,TimesNet,0.9732
 Penmanshiel,speed,Zero-shot + sigma=0.3,6,iTransformer,0.9823
-Penmanshiel,speed,Zero-shot + sigma=0.3,12,CSCD-Net,0.9018
+Penmanshiel,speed,Zero-shot + sigma=0.3,12,WindFormer,0.9018
 Penmanshiel,speed,Zero-shot + sigma=0.3,12,MST-Net,1.0271
 Penmanshiel,speed,Zero-shot + sigma=0.3,12,DLinear,1.2094
 Penmanshiel,speed,Zero-shot + sigma=0.3,12,TimesNet,1.1923
 Penmanshiel,speed,Zero-shot + sigma=0.3,12,iTransformer,1.1968
-Penmanshiel,speed,Zero-shot + sigma=0.3,18,CSCD-Net,1.0335
+Penmanshiel,speed,Zero-shot + sigma=0.3,18,WindFormer,1.0335
 Penmanshiel,speed,Zero-shot + sigma=0.3,18,MST-Net,1.1752
 Penmanshiel,speed,Zero-shot + sigma=0.3,18,DLinear,1.3698
 Penmanshiel,speed,Zero-shot + sigma=0.3,18,TimesNet,1.3509
 Penmanshiel,speed,Zero-shot + sigma=0.3,18,iTransformer,1.357
-Penmanshiel,direction,Full-sample,6,CSCD-Net,0.1456
+Penmanshiel,direction,Full-sample,6,WindFormer,0.1456
 Penmanshiel,direction,Full-sample,6,MST-Net,0.1637
 Penmanshiel,direction,Full-sample,6,DLinear,0.1939
 Penmanshiel,direction,Full-sample,6,TimesNet,0.1894
 Penmanshiel,direction,Full-sample,6,iTransformer,0.1911
-Penmanshiel,direction,Full-sample,12,CSCD-Net,0.1881
+Penmanshiel,direction,Full-sample,12,WindFormer,0.1881
 Penmanshiel,direction,Full-sample,12,MST-Net,0.2113
 Penmanshiel,direction,Full-sample,12,DLinear,0.2497
 Penmanshiel,direction,Full-sample,12,TimesNet,0.2434
 Penmanshiel,direction,Full-sample,12,iTransformer,0.246
-Penmanshiel,direction,Full-sample,18,CSCD-Net,0.2204
+Penmanshiel,direction,Full-sample,18,WindFormer,0.2204
 Penmanshiel,direction,Full-sample,18,MST-Net,0.2471
 Penmanshiel,direction,Full-sample,18,DLinear,0.2913
 Penmanshiel,direction,Full-sample,18,TimesNet,0.284
 Penmanshiel,direction,Full-sample,18,iTransformer,0.2872
-Penmanshiel,direction,Zero-shot,6,CSCD-Net,0.1715
+Penmanshiel,direction,Zero-shot,6,WindFormer,0.1715
 Penmanshiel,direction,Zero-shot,6,MST-Net,0.1973
 Penmanshiel,direction,Zero-shot,6,DLinear,0.2579
 Penmanshiel,direction,Zero-shot,6,TimesNet,0.2518
 Penmanshiel,direction,Zero-shot,6,iTransformer,0.2551
-Penmanshiel,direction,Zero-shot,12,CSCD-Net,0.2191
+Penmanshiel,direction,Zero-shot,12,WindFormer,0.2191
 Penmanshiel,direction,Zero-shot,12,MST-Net,0.2557
 Penmanshiel,direction,Zero-shot,12,DLinear,0.3265
 Penmanshiel,direction,Zero-shot,12,TimesNet,0.3172
 Penmanshiel,direction,Zero-shot,12,iTransformer,0.3225
-Penmanshiel,direction,Zero-shot,18,CSCD-Net,0.2549
+Penmanshiel,direction,Zero-shot,18,WindFormer,0.2549
 Penmanshiel,direction,Zero-shot,18,MST-Net,0.2953
 Penmanshiel,direction,Zero-shot,18,DLinear,0.3772
 Penmanshiel,direction,Zero-shot,18,TimesNet,0.3635
 Penmanshiel,direction,Zero-shot,18,iTransformer,0.3672
-Penmanshiel,direction,Zero-shot + sigma=0.3,6,CSCD-Net,0.2084
+Penmanshiel,direction,Zero-shot + sigma=0.3,6,WindFormer,0.2084
 Penmanshiel,direction,Zero-shot + sigma=0.3,6,MST-Net,0.2473
 Penmanshiel,direction,Zero-shot + sigma=0.3,6,DLinear,0.3541
 Penmanshiel,direction,Zero-shot + sigma=0.3,6,TimesNet,0.3426
 Penmanshiel,direction,Zero-shot + sigma=0.3,6,iTransformer,0.3452
-Penmanshiel,direction,Zero-shot + sigma=0.3,12,CSCD-Net,0.2591
+Penmanshiel,direction,Zero-shot + sigma=0.3,12,WindFormer,0.2591
 Penmanshiel,direction,Zero-shot + sigma=0.3,12,MST-Net,0.3124
 Penmanshiel,direction,Zero-shot + sigma=0.3,12,DLinear,0.4121
 Penmanshiel,direction,Zero-shot + sigma=0.3,12,TimesNet,0.3996
 Penmanshiel,direction,Zero-shot + sigma=0.3,12,iTransformer,0.3996
-Penmanshiel,direction,Zero-shot + sigma=0.3,18,CSCD-Net,0.2937
+Penmanshiel,direction,Zero-shot + sigma=0.3,18,WindFormer,0.2937
 Penmanshiel,direction,Zero-shot + sigma=0.3,18,MST-Net,0.3498
 Penmanshiel,direction,Zero-shot + sigma=0.3,18,DLinear,0.4556
 Penmanshiel,direction,Zero-shot + sigma=0.3,18,TimesNet,0.4387

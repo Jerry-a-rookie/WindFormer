@@ -3650,10 +3650,11 @@ def _build_phase_common_residual_mlp(
     )
 
 
+@register_model("windformer")
+@register_model("cscd_net")
 @register_model("phaseformer_common_residual_mlp")
 @register_model("phase_common_residual_phase_mlp")
-@register_model("phase_net")
-def _build_phaseformer_common_residual_mlp(
+def _build_windformer(
     config: dict[str, Any],
     num_features: int,
     prepared: dict[str, Any] | None = None,

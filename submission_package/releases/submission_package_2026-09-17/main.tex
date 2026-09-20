@@ -1,0 +1,62 @@
+\documentclass[preprint,review,12pt]{elsarticle}
+
+% Allow Computer Modern fonts to scale to the sizes produced when wide
+% tables are fitted with adjustbox.
+\usepackage{fix-cm}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{url}
+\usepackage[hidelinks,bookmarks=false]{hyperref}
+\usepackage{orcidlink}
+% Applied Soft Computing uses numbered citations for this submission.
+\biboptions{numbers,sort&compress}
+
+\graphicspath{{figures/}}
+\emergencystretch=3em
+\journal{Applied Soft Computing}
+
+\begin{document}
+\begin{frontmatter}
+
+\title{WindFormer: A Common-Speed and Direction-Vector Network for Wind Resource Forecasting}
+
+\author[inst1]{Junhua Chai\orcidlink{0009-0000-2910-4661}}
+\author[inst1]{Rui Zhou\orcidlink{0009-0004-7055-5359}}
+\ead{18318582708@163.com}
+\author[inst1]{Huazhou Chen\orcidlink{0000-0003-4770-020X}}
+\author[inst1]{Quanxi Feng\orcidlink{0000-0002-7720-4453}}
+\ead{fqx9904@163.com}
+\address[inst1]{School of Mathematics and Statistics, Guilin University of Technology, Guilin, China. Corresponding authors: Rui Zhou and Quanxi Feng.}
+
+\begin{abstract}
+Accurate short-term wind resource forecasting is critical for wind farm dispatch and power system operation, yet wind speed and wind direction exhibit different cross-turbine structures and mathematical properties. Wind speed combines shared meteorological evolution with turbine-level deviations, whereas wind direction is turbine-specific and circular, making a single homogeneous interaction pattern inadequate. We propose WindFormer, a structure-aware dual-branch network that extracts a learnable common wind-speed field, models turbine residuals with shared predictors, and organizes the common history using Phase-Attention over screened candidate temporal scales. In parallel, WindFormer forecasts each turbine's wind direction in a continuous sine-cosine vector space with shared Patch-Attention, and couples the two branches through a physical wind-vector consistency objective. Experiments on two public wind-farm datasets show consistent improvements over the compared forecasting baselines across wind-speed and wind-direction metrics and forecast horizons. Component ablations, matched-seed statistical tests, perturbation and extreme-volatility stress tests, efficiency measurements, and sparse-deployment zero-shot experiments further examine the mechanism, stability, computational cost, and cross-turbine generalization of the proposed framework.
+\end{abstract}
+
+\begin{keyword}
+Spatio-temporal modeling \sep wind speed forecasting \sep wind direction forecasting \sep wind turbines \sep deep learning \sep time series forecasting
+\end{keyword}
+\end{frontmatter}
+
+\input{sections/introduction}
+\input{sections/method}
+\input{sections/experiments}
+
+\section{Conclusion}
+\label{sec:conclusion}
+This paper presented WindFormer as a structure-aware framework for joint short-term forecasting of wind speed and wind direction in multi-turbine wind farms. Its central design principle is to share information where it is physically common and preserve information where it is turbine-specific: the wind-speed branch separates a learnable common field from local residuals and organizes the common history with Phase-Attention over screened candidate temporal scales, while the wind-direction branch retains turbine-wise sequences in a continuous sine-cosine space. A wind-vector consistency objective couples the two representation-decoupled branches during training.
+
+The experiments answer the four research questions in sequence. WindFormer improves standard wind-speed and wind-direction forecasting across both public wind farms and remains computationally compact. The ablations show that the common-field weights, phase-aware temporal organization, circular direction representation, and vector-consistency loss contribute to the corresponding aspects of the performance. Perturbation and extreme-volatility tests show more stable degradation, while sparse-deployment experiments indicate transfer to unseen turbines. These findings support the broader conclusion that multi-turbine wind forecasting benefits from matching the model representation to the physical structure of each wind variable rather than applying one homogeneous interaction pattern to all channels.
+
+The current study focuses on SCADA-based short-term forecasting and does not introduce a geographic graph correction in the final WindFormer configuration. Future work can investigate adaptive geographic or wake-aware extensions while retaining the same principle of separating shared dynamics from turbine-specific information.
+
+\bibliographystyle{elsarticle-num}
+\bibliography{references}
+
+\end{document}

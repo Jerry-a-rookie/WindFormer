@@ -22,7 +22,7 @@ Use a four-panel figure:
 The figure should establish that the dataset is neither a collection of
 independent univariate series nor a perfectly identical signal.
 
-## Figure 2: Why Phase-Net Decomposes the Forecasting Problem
+## Figure 2: Why WindFormer Decomposes the Forecasting Problem
 
 Compare two pipelines:
 
@@ -30,7 +30,7 @@ Compare two pipelines:
 Generic multivariate model:
 all turbine channels -> one large temporal mixer
 
-Phase-Net:
+WindFormer:
 all turbine channels -> common-field branch
                    -> turbine-residual branch
                    -> speed/direction reconstruction
@@ -85,7 +85,7 @@ the common-field argument.
 ## Recommended Main-Text Order
 
 1. Figure 1: shared farm-wide dynamics.
-2. Figure 2: motivation and Phase-Net overview.
+2. Figure 2: motivation and WindFormer overview.
 3. Figure 3: detailed phase-aware architecture.
 4. Figure 4: circular wind-direction representation.
 5. Main accuracy and efficiency results.

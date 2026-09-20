@@ -30,7 +30,7 @@ def main() -> None:
         for horizon in (6, 24):
             config["data"]["horizon"] = horizon
             for model_name in (
-                "phase_net",
+                "windformer",
                 "patchtst",
                 "itransformer",
                 "timemixer",

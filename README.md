@@ -1,4 +1,4 @@
-# WindFormer / CSCD-Net: Wind Resource Forecasting
+# WindFormer: Structure-Aware Wind Resource Forecasting
 
 <p align="center">
   <img src="assets/architecture.png" width="820" alt="WindFormer architecture">
@@ -14,10 +14,9 @@
 </p>
 
 This repository contains the reproducibility code and manuscript assets for
-the WindFormer (previously CSCD-Net / Phase-Net) wind resource forecasting
-study. The current benchmark compares:
+the WindFormer wind resource forecasting study. The current benchmark compares:
 
-- Phase-Net
+- WindFormer
 - PatchTST
 - iTransformer
 - TimeMixer
@@ -122,14 +121,14 @@ Prepare the shared cache:
 python scripts/prepare_data.py --config configs/final/shanxi_benchmark.yaml
 ```
 
-Run only Phase-Net at one horizon:
+Run only WindFormer at one horizon:
 
 ```powershell
 python scripts/train.py `
   --config configs/final/shanxi_benchmark.yaml `
-  --model phase_net `
-  --run-id shanxi-phase-net-h6
-python scripts/evaluate.py --run experiments/shanxi-phase-net-h6
+  --model windformer `
+  --run-id shanxi-windformer-h6
+python scripts/evaluate.py --run experiments/shanxi-windformer-h6
 ```
 
 Run all 16 experiments:
@@ -137,7 +136,7 @@ Run all 16 experiments:
 ```powershell
 python scripts/benchmark.py `
   --config configs/final/shanxi_benchmark.yaml `
-  --models phase_net patchtst itransformer timemixer `
+  --models windformer patchtst itransformer timemixer `
   --horizons 6 12 18 24
 ```
 
@@ -150,7 +149,7 @@ powershell -ExecutionPolicy Bypass -File scripts/run_shanxi_benchmark.ps1
 Results are written under:
 
 ```text
-experiments/phase-net-shanxi-2023-11-2024-05/
+experiments/windformer-shanxi-2023-11-2024-05/
 ```
 
 Each model/horizon run contains its resolved configuration, checkpoint,

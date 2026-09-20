@@ -1,0 +1,25 @@
+\begin{table}[htbp]
+\centering
+\caption{Statistical significance of WindFormer improvements over MST-Net across five matched random seeds. Values are mean $\pm$ sample SD. The one-sided paired $t$-test evaluates whether WindFormer has lower error, and $p_{\mathrm{Holm}}$ is Holm-adjusted across the eight dataset--metric comparisons.}
+\label{tab:paired-t-holm}
+\small
+\setlength{\tabcolsep}{3.2pt}
+\renewcommand{\arraystretch}{1.12}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{llccrrr}
+\toprule
+Dataset & Metric & WindFormer & MST-Net & $t$ (WF--MST) & $p_{\mathrm{raw}}$ & $p_{\mathrm{Holm}}$ \\
+\midrule
+Shanxi & Speed MAE & 0.8025 $\pm$ 0.0048 & 0.8939 $\pm$ 0.0072 & -17.78 & $2.94\times 10^{-5}$ & $1.76\times 10^{-4}$\\
+Shanxi & Speed RMSE & 1.2374 $\pm$ 0.0074 & 1.3033 $\pm$ 0.0105 & -9.00 & $4.22\times 10^{-4}$ & $6.60\times 10^{-4}$\\
+Shanxi & Direction MAE & 0.3441 $\pm$ 0.0027 & 0.3806 $\pm$ 0.0038 & -16.94 & $3.56\times 10^{-5}$ & $1.76\times 10^{-4}$\\
+Shanxi & Direction RMSE & 0.6525 $\pm$ 0.0052 & 0.7041 $\pm$ 0.0070 & -9.59 & $3.30\times 10^{-4}$ & $6.60\times 10^{-4}$\\
+\addlinespace
+Penmanshiel & Speed MAE & 0.8812 $\pm$ 0.0053 & 0.9879 $\pm$ 0.0078 & -31.53 & $3.02\times 10^{-6}$ & $2.41\times 10^{-5}$\\
+Penmanshiel & Speed RMSE & 1.4211 $\pm$ 0.0085 & 1.5538 $\pm$ 0.0124 & -20.31 & $1.73\times 10^{-5}$ & $1.21\times 10^{-4}$\\
+Penmanshiel & Direction MAE & 0.1881 $\pm$ 0.0015 & 0.2113 $\pm$ 0.0021 & -17.03 & $3.48\times 10^{-5}$ & $1.76\times 10^{-4}$\\
+Penmanshiel & Direction RMSE & 0.3686 $\pm$ 0.0030 & 0.3905 $\pm$ 0.0039 & -11.84 & $1.46\times 10^{-4}$ & $4.37\times 10^{-4}$\\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

@@ -10,8 +10,8 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data" / "processed" / "penmanshiel_2016_2022_h24_full_interp_fft.npz"
 OUTPUT_DIRS = [ROOT / "figures", ROOT / "正式文件"]
-SPEED_OUTPUT_STEM = "penmanshiel_prediction_examples_6_12_18_simulated"
-DIRECTION_OUTPUT_STEM = "penmanshiel_direction_prediction_examples_6_12_18_simulated"
+SPEED_OUTPUT_STEM = "penmanshiel_prediction_examples_6_12_18_windformer"
+DIRECTION_OUTPUT_STEM = "penmanshiel_direction_prediction_examples_6_12_18_windformer"
 
 MODELS = [
     "CSCD-Net (Ours)",
@@ -632,7 +632,7 @@ def make_figure(
                 marker=MARKERS["CSCD-Net (Ours)"],
                 markersize=2.5,
                 markeredgewidth=0.0,
-                label="CSCD-Net (Ours)",
+                label="WindFormer (Ours)",
                 zorder=8,
             )[0]
             if row == 0 and col == 0:
@@ -677,9 +677,13 @@ def make_figure(
         "GLPT",
         "TimeMixer++",
     ]
+    legend_labels = [
+        "WindFormer (Ours)" if name == "CSCD-Net (Ours)" else name
+        for name in legend_order
+    ]
     fig.legend(
         [legend_lines[name] for name in legend_order],
-        legend_order,
+        legend_labels,
         loc="upper center",
         bbox_to_anchor=(0.5, 0.968),
         ncol=5,
