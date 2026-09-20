@@ -27,13 +27,18 @@
 
 \title{WindFormer: A Common-Speed and Direction-Vector Network for Wind Resource Forecasting}
 
-\author[inst1]{Junhua Chai\orcidlink{0009-0000-2910-4661}}
-\author[inst1]{Rui Zhou\orcidlink{0009-0004-7055-5359}}
+\author[inst1]{Junhua Chai\orcidlink{0009-0000-2910-4661}\fnref{fn1}}
+\author[inst1]{Rui Zhou\orcidlink{0009-0004-7055-5359}\fnref{fn1}\corref{cor1}}
 \ead{18318582708@163.com}
+\author[inst1]{Kehong Chen\orcidlink{0009-0002-4774-9871}}
+\ead{chen024410@163.com}
 \author[inst1]{Huazhou Chen\orcidlink{0000-0003-4770-020X}}
-\author[inst1]{Quanxi Feng\orcidlink{0000-0002-7720-4453}}
+\author[inst1]{Quanxi Feng\orcidlink{0000-0002-7720-4453}\corref{cor2}}
 \ead{fqx9904@163.com}
-\address[inst1]{School of Mathematics and Statistics, Guilin University of Technology, Guilin, China. Corresponding authors: Rui Zhou and Quanxi Feng.}
+\cortext[cor1]{First corresponding author.}
+\cortext[cor2]{Corresponding author.}
+\fntext[fn1]{Junhua Chai and Rui Zhou contributed equally to this work.}
+\address[inst1]{School of Mathematics and Statistics, Guilin University of Technology, Guilin, China.}
 
 \begin{abstract}
 Accurate short-term wind resource forecasting is critical for wind farm dispatch and power system operation, yet wind speed and wind direction exhibit different cross-turbine structures and mathematical properties. Wind speed combines shared meteorological evolution with turbine-level deviations, whereas wind direction is turbine-specific and circular, making a single homogeneous interaction pattern inadequate. We propose WindFormer, a structure-aware dual-branch network that extracts a learnable common wind-speed field, models turbine residuals with shared predictors, and organizes the common history using Phase-Attention over screened candidate temporal scales. In parallel, WindFormer forecasts each turbine's wind direction in a continuous sine-cosine vector space with shared Patch-Attention, and couples the two branches through a physical wind-vector consistency objective. Experiments on two public wind-farm datasets show consistent improvements over the compared forecasting baselines across wind-speed and wind-direction metrics and forecast horizons. Component ablations, matched-seed statistical tests, perturbation and extreme-volatility stress tests, efficiency measurements, and sparse-deployment zero-shot experiments further examine the mechanism, stability, computational cost, and cross-turbine generalization of the proposed framework.
