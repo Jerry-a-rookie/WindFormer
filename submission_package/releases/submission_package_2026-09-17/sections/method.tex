@@ -17,7 +17,7 @@ The second dataset was collected from a wind farm in Shanxi Province, China. It 
 
 \subsection{Data Preprocessing}
 
-Consider a wind farm with $N$ turbines and a sampled sequence of length $T$. At time $t$, the wind speed and wind direction of turbine $i$ are denoted by $v_{t,i}$ and $\theta_{t,i}$. Given the past $L$ time steps, the model predicts the states of all turbines for the next $H$ time steps:
+Consider a wind farm with $N$ turbines and a sampled sequence of length $T$. At time $t$, the wind speed and wind direction of turbine $i$ are denoted by $v_{t,i}$ and $\theta_{t,i}$. Given the past $L$ time steps, the model predicts the states of all turbines for the next $H$ time steps \cite{Box2015TimeSeriesAnalysis,Makridakis2020M4Competition}:
 
 \begin{equation}
 \mathbf{X}_{t-L+1:t} \longrightarrow \hat{\mathbf{Y}}_{t+1:t+H}.
@@ -35,7 +35,7 @@ Given a historical window length $L$ and a forecasting horizon $H$, the input at
 
 Thus, each time step has dimension $3N$. The model outputs future wind speed and wind direction for all turbines. Samples are chronologically split into training, validation, and testing sets with a ratio of $7:1:2$.
 
-Raw SCADA records are aligned to a common 10-minute time axis. Wind-speed values outside $[0,25]\ \mathrm{m/s}$ and wind-direction values outside $[0,2\pi)$ are marked as missing. Missing speeds are linearly interpolated, while directions are interpolated after conversion to sine and cosine components. For wind speed, low-amplitude frequency components are removed through FFT-based denoising before sliding-window generation; incomplete windows are discarded.
+Raw SCADA records are aligned to a common 10-minute time axis. Wind-speed values outside $[0,25]\ \mathrm{m/s}$ and wind-direction values outside $[0,2\pi)$ are marked as missing. Missing speeds are linearly interpolated, while directions are interpolated after conversion to sine and cosine components \cite{Wang2024ContinuousMissingValuesImputationGAN}. For wind speed, low-amplitude frequency components are removed through FFT-based denoising before sliding-window generation; incomplete windows are discarded.
 
 Wind speed is standardized for each turbine using only the training-set statistics:
 
@@ -122,7 +122,7 @@ Let the common wind speed input sequence be:
 \mathbf{c}_{1:L} = [c_1, c_2, \ldots, c_L].
 \end{equation}
 
-For a screened candidate temporal scale $p$, the model organizes the sequence into multiple local temporal blocks according to relative phase position. The scale is a modeling choice for organizing recurring local dynamics, rather than a claim that the wind farm follows one strict physical period. Let:
+For a screened candidate temporal scale $p$, the model organizes the sequence into multiple local temporal blocks according to relative phase position. The scale is a modeling choice for organizing recurring local dynamics, rather than a claim that the wind farm follows one strict physical period \cite{Autoformer2021DecompositionAutoCorrelation,FEDformer2022FrequencyEnhanced}. Let:
 
 \begin{equation}
 K_p = \left\lceil\frac{L}{p}\right\rceil,
@@ -258,7 +258,7 @@ Each patch contains the sine and cosine components of $P$ time points and is pro
 \mathbf{e}_{m,i} = \mathbf{W}_{\mathrm{patch}}\mathbf{z}_{m,i} + \mathbf{p}_m.
 \end{equation}
 
-This patch representation captures local turning patterns and longer-range directional evolution.
+This patch representation captures local turning patterns and longer-range directional evolution \cite{Zerveas2021TimeSeriesRepresentation,Nie2024ChannelAwareLowRankAdaptation}.
 
 \textbf{Shared Transformer encoding and prediction.}
 
